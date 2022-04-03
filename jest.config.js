@@ -2,5 +2,5 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  testMatch: ["**/*.test.ts"]
+  testRegex: './src/body/.*\.test\.ts$'
 };

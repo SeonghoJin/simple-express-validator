@@ -1,6 +1,6 @@
 {
   "name": "soft-express-validator",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "express-validator",
   "module": "./dist/esm/index.js",
   "main": "dist/cjs/index.js",
@@ -15,7 +15,7 @@
     "*.ts": [
       "eslint --fix",
       "prettier --write",
-      "jest"
+      "jest --passWithNoTests"
     ]
   },
   "author": "",
@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@types/lodash": "^4.14.181",
+    "@types/lodash-es": "^4.17.6",
     "lodash": "^4.17.21"
   }
 }
