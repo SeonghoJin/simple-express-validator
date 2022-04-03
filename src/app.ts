@@ -1,5 +1,3 @@
-export default class App {
-  constructor() {
-    console.log('HELLO!! DEFAULT-TYPESCRIPT-TEMPLATE');
-  }
-}
+export const sum = (a: number, b: number) => {
+  return a + b;
+};
