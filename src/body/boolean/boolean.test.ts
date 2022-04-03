@@ -1,3 +1,4 @@
+import { RequestLike } from '../../types/express';
 import { getBoolean } from './boolean';
 
 test('GetBooleanValidTest', () => {

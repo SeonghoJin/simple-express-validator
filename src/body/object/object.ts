@@ -1,5 +1,6 @@
+import { RequestLike } from '../../types/express';
 import { getProperty } from '../../util';
-import { creatErrorMessage } from '../../util/createErrorMessage';
+import { createErrorMessage } from '../../util/createErrorMessage';
 import { getBody } from '../body/body';
 
 export const getObject = (req: RequestLike, path: string) => {
@@ -7,11 +8,11 @@ export const getObject = (req: RequestLike, path: string) => {
   const property = getProperty(body, path);
 
   if (property === null || property === undefined) {
-    throw new TypeError(creatErrorMessage(path, property, 'this is null or undefined'));
+    throw new TypeError(createErrorMessage(path, property, 'this is null or undefined'));
   }
 
   if (typeof property !== 'object') {
-    throw new TypeError(creatErrorMessage(path, property, 'this is not object'));
+    throw new TypeError(createErrorMessage(path, property, 'this is not object'));
   }
 
   return property;

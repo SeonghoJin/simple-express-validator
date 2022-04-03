@@ -1,5 +1,6 @@
+import { RequestLike } from '../../types/express';
 import { getProperty } from '../../util';
-import { creatErrorMessage } from '../../util/createErrorMessage';
+import { createErrorMessage } from '../../util/createErrorMessage';
 import { getBody } from '../body/body';
 
 type GetBooleanOptions = {
@@ -12,7 +13,7 @@ export const getBoolean = (req: RequestLike, path: string, option?: GetBooleanOp
   let convertedProperty = property;
 
   if (property === null || property === undefined) {
-    throw new TypeError(creatErrorMessage(path, property, 'this is null or undefined'));
+    throw new TypeError(createErrorMessage(path, property, 'this is null or undefined'));
   }
 
   if (typeof property === 'string') {
@@ -23,7 +24,7 @@ export const getBoolean = (req: RequestLike, path: string, option?: GetBooleanOp
       lowercaseProperty !== '0' &&
       lowercaseProperty !== '1'
     ) {
-      throw new TypeError(creatErrorMessage(path, property, 'this is not boolean'));
+      throw new TypeError(createErrorMessage(path, property, 'this is not boolean'));
     } else {
       convertedProperty = lowercaseProperty === 'true' || lowercaseProperty === '1';
     }
@@ -32,7 +33,7 @@ export const getBoolean = (req: RequestLike, path: string, option?: GetBooleanOp
 
   if (typeof property === 'number') {
     if (property !== 1 && property !== 0) {
-      throw new TypeError(creatErrorMessage(path, property, 'this is not boolean'));
+      throw new TypeError(createErrorMessage(path, property, 'this is not boolean'));
     } else {
       convertedProperty = property === 1;
     }
@@ -40,7 +41,7 @@ export const getBoolean = (req: RequestLike, path: string, option?: GetBooleanOp
   }
 
   if (typeof property !== 'boolean') {
-    throw new TypeError(creatErrorMessage(path, property, 'this is not boolean'));
+    throw new TypeError(createErrorMessage(path, property, 'this is not boolean'));
   }
 
   return option?.pipe ? convertedProperty : property;

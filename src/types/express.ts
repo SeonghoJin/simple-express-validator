@@ -1,4 +1,4 @@
-type RequestLike = {
+export type RequestLike = {
   query?: any;
   body?: any;
   params?: any;

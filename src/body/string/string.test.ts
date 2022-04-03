@@ -1,3 +1,4 @@
+import { RequestLike } from '../../types/express';
 import { getString } from './string';
 
 test('GetStringValidTest', () => {

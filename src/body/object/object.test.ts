@@ -1,3 +1,4 @@
+import { RequestLike } from '../../types/express';
 import { getObject } from './object';
 
 test('GetObjectValidTest', () => {

@@ -1,3 +1,4 @@
+import { RequestLike } from '../../types/express';
 import { getNumber } from './number';
 
 test('GetNumberValidTest', () => {

@@ -1,5 +1,6 @@
+import { RequestLike } from '../../types/express';
 import { getProperty } from '../../util';
-import { creatErrorMessage } from '../../util/createErrorMessage';
+import { createErrorMessage } from '../../util/createErrorMessage';
 import { getBody } from '../body/body';
 
 type GetNumberOptions = {
@@ -12,15 +13,15 @@ export const getNumber = (req: RequestLike, path: string, option?: GetNumberOpti
   const convertedProperty = Number(property);
 
   if (property === null || property === undefined) {
-    throw new TypeError(creatErrorMessage(path, property, 'this is null or undefined'));
+    throw new TypeError(createErrorMessage(path, property, 'this is null or undefined'));
   }
 
   if (Number.isNaN(convertedProperty)) {
-    throw new TypeError(creatErrorMessage(path, property, 'this is Nan'));
+    throw new TypeError(createErrorMessage(path, property, 'this is Nan'));
   }
 
   if (typeof convertedProperty !== 'number') {
-    throw new TypeError(creatErrorMessage(path, property, 'this is not number'));
+    throw new TypeError(createErrorMessage(path, property, 'this is not number'));
   }
 
   return option?.pipe ? convertedProperty : property;

@@ -1,4 +1,5 @@
-import { creatErrorMessage } from '../../util/createErrorMessage';
+import { RequestLike } from '../../types/express';
+import { createErrorMessage } from '../../util/createErrorMessage';
 import { getString } from '../string/string';
 
 type GetNotEmptyStringOption = {
@@ -9,7 +10,7 @@ export const getNotEmptyString = (req: RequestLike, path: string, option?: GetNo
   const property = getString(req, path);
   const validProp = option?.ignoreWhiteSpace ? property.trim() : property;
   if (validProp === '') {
-    throw new TypeError(creatErrorMessage(path, property, 'this is empty string'));
+    throw new TypeError(createErrorMessage(path, property, 'this is empty string'));
   }
   return property;
 };
