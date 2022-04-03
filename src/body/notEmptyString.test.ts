@@ -50,4 +50,14 @@ test('GetStringInvalidTest', () => {
   };
 
   expect(() => getNotEmptyString(validRequest2, 'a.b.c', { ignoreWhiteSpace: true })).toThrow(TypeError);
+
+  const validRequest3: RequestLike = {
+    body: {
+      a: {
+        b: { c: ' ' },
+      },
+    },
+  };
+
+  expect(getNotEmptyString(validRequest3, 'a.b.c')).toBe(' ');
 });
