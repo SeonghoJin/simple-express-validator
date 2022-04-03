@@ -1,6 +1,6 @@
-import { getBody } from './body';
-import { getProperty } from '../util';
-import { creatErrorMessage } from '../util/createErrorMessage';
+import { getBody } from '../body/body';
+import { getProperty } from '../../util';
+import { creatErrorMessage } from '../../util/createErrorMessage';
 
 export const getString = (req: RequestLike, path: string) => {
   const body = getBody(req);

@@ -1,5 +1,5 @@
-import { creatErrorMessage } from '../util/createErrorMessage';
-import { getString } from './string';
+import { creatErrorMessage } from '../../util/createErrorMessage';
+import { getString } from '../string/string';
 
 type GetNotEmptyStringOption = {
   ignoreWhiteSpace: boolean;

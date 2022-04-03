@@ -1,4 +1,4 @@
-import { creatErrorMessage } from '../util/createErrorMessage';
+import { creatErrorMessage } from '../../util/createErrorMessage';
 
 export const getBody = (req: RequestLike) => {
   const body = req.body;
