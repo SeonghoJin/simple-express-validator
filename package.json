@@ -4,7 +4,7 @@
   "description": "express-validator",
   "module": "./dist/esm/index.js",
   "main": "dist/cjs/index.js",
-  "types": "./dist/esm/index.d.ts",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "start": "ts-node src/index.ts",
     "build": "parcel build src/index.ts",
