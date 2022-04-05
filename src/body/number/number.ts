@@ -1,6 +1,6 @@
 import { RequestLike } from '../../types/express';
 import { getProperty } from '../../util';
-import { createErrorMessage } from '../../util/createErrorMessage';
+import { createErrorMessage } from '../../error/createErrorMessage';
 import { getBody } from '../body/body';
 
 type GetNumberOptions = {

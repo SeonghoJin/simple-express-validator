@@ -1,15 +1,15 @@
-import { getBody } from '../body/body';
-import { getProperty } from '../../util';
-import { createErrorMessage } from '../../util/createErrorMessage';
-import { RequestLike } from '../../types/express';
+import { getBody } from '@body';
+import { getProperty } from '@util';
+import { createErrorMessage } from '@error';
+import { RequestLike } from '@types';
+import { StringContext } from '@context';
 
-export const getString = (req: RequestLike, path: string) => {
+export const getString = (req: RequestLike, path: string): string => {
   const body = getBody(req);
   const property = getProperty(body, path);
-
-  if (typeof property !== 'string') {
-    throw new TypeError(createErrorMessage(path, property, 'this is not string'));
-  }
-
-  return property;
+  const context = new StringContext(property);
+  context.verify();
+  console.log(context);
+  context.throwTypeErrorIfValueIsNotValid(createErrorMessage(path, property, 'this is not string'));
+  return context.value;
 };

@@ -1,5 +1,5 @@
 import { RequestLike } from '../../types/express';
-import { createErrorMessage } from '../../util/createErrorMessage';
+import { createErrorMessage } from '../../error/createErrorMessage';
 import { getString } from '../string/string';
 
 type GetNotEmptyStringOption = {

@@ -19,7 +19,8 @@ module.exports = {
   },
   "overrides": [
     {
-      "files": [ "src/**/*.ts" ],
+      "files": [ "./src/**/*.ts" ],
     }
-  ]
+  ],
+  ignorePatterns: ["jest.config.js", "dist"],
 };
