@@ -1,5 +1,7 @@
-export class NotPipeError extends Error {
+import { NotExecutedError } from './NotExectedError';
+
+export class NotPipeError extends NotExecutedError {
   constructor() {
-    super('this is not piped! if you access pipe value, please call pipe()');
+    super('To execute this function, the pipe function must be executed.');
   }
 }

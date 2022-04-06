@@ -1,8 +1,7 @@
 import { TypeofReturnType } from '@types';
-import { NotPipeError } from '@error';
 import { ValidatorContext } from '@context';
-import { isNull, isString } from '@raw';
-import { VerifyGuard, Verify } from '@decorators';
+import { isString } from '@raw';
+import { VerifyGuard, Verify, Pipe, PipeGuard } from '@decorators';
 
 export class StringContext<T> extends ValidatorContext<T, string> {
   get value(): T {
@@ -13,36 +12,35 @@ export class StringContext<T> extends ValidatorContext<T, string> {
     return this._type;
   }
 
-  @VerifyGuard
+  @PipeGuard()
+  @VerifyGuard()
   get pipedValue(): string {
-    if (isNull(this._pipedValue)) {
-      throw new NotPipeError();
-    }
-    return this._pipedValue;
+    return this._pipedValue as string;
   }
 
-  @VerifyGuard
+  @VerifyGuard()
   get isStrictValid(): boolean {
     return this._isValid;
   }
 
-  @VerifyGuard
+  @VerifyGuard()
   get isValid(): boolean {
     return this._isValid;
   }
 
-  @Verify
+  @Verify()
   verify(): void {
     if (isString(this._value)) {
       this._isValid = true;
     }
   }
 
+  @Pipe()
   pipe(): void {
     this._pipedValue = String(this._value);
   }
 
-  @VerifyGuard
+  @VerifyGuard()
   throwTypeErrorIfValueIsNotValid(message?: string): void {
     if (this.isValid) {
       return;

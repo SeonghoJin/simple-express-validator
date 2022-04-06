@@ -1,5 +1,7 @@
-export class NotVerifiedError extends Error {
+import { NotExecutedError } from './NotExectedError';
+
+export class NotVerifiedError extends NotExecutedError {
   constructor() {
-    super('this is not valid! if you access isValid and value, please call verify()');
+    super('To execute this function, the verify function must be executed.');
   }
 }
