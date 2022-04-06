@@ -35,9 +35,12 @@ export class StringContext<T> extends ValidatorContext<T, string> {
     }
   }
 
+  @VerifyGuard()
   @Pipe()
   pipe(): void {
-    this._pipedValue = String(this._value);
+    if (this.isValid) {
+      this._pipedValue = this._value as unknown as string;
+    }
   }
 
   @VerifyGuard()

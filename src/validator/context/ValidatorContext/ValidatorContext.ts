@@ -3,7 +3,7 @@ import { TypeofReturnType } from '@types';
 export abstract class ValidatorContext<T, K> {
   protected _value: T;
   protected _type: TypeofReturnType;
-  protected _pipedValue: string | null = null;
+  protected _pipedValue: K | null = null;
   protected _isValid = false;
 
   constructor(value: T) {
@@ -13,7 +13,7 @@ export abstract class ValidatorContext<T, K> {
 
   abstract get value(): T;
   abstract get type(): TypeofReturnType;
-  abstract get pipedValue(): K;
+  abstract get pipedValue(): K | null;
   abstract get isStrictValid(): boolean;
   abstract get isValid(): boolean;
   abstract verify(): void;
