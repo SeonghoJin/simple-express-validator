@@ -1,5 +1,5 @@
 import { Pipe, PipeGuard, Verify, VerifyGuard } from '@decorators';
-import { isNumber } from '@raw';
+import { isString, isWidelyNumber } from '@raw';
 import { TypeofReturnType } from '@types';
 import { ValidatorContext } from '@context';
 
@@ -25,16 +25,20 @@ export class NumberContext<T> extends ValidatorContext<T, number> {
 
   @Verify()
   verify(): void {
-    this._isValid = isNumber(this.value);
+    this._isValid = isWidelyNumber(this.value);
   }
 
   @VerifyGuard()
   @Pipe()
   pipe(): void {
     if (this.isValid) {
-      this._pipedValue = this.value as unknown as number;
+      if (isString(this.value)) {
+        this._pipedValue = Number(this.value);
+      } else {
+        this._pipedValue = this.value as unknown as number;
+      }
     } else {
-      this._pipedValue = 0;
+      this._pipedValue = NaN;
     }
   }
 
