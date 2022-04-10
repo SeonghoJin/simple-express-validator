@@ -63,6 +63,6 @@ export class NotEmptyStringContext<T> extends ValidatorContext<T, string> {
       return;
     }
 
-    throw new TypeError(message ?? 'this is not string');
+    throw new TypeError(message ?? 'this is empty string');
   }
 }
