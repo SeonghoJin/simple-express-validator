@@ -11,8 +11,8 @@ export function ExecutorGuard(symbol: symbol, executerGuardOption?: ExecutorGuar
     if (descriptor.get || descriptor.set) {
       const method = descriptor.get!;
       descriptor.get = function () {
-        const called = Reflect.getMetadata(symbol, target);
-        if (called === false) {
+        const called = Reflect.getMetadata(symbol, this);
+        if (called === false || called === undefined) {
           throw error;
         }
         // eslint-disable-next-line prefer-rest-params
@@ -21,8 +21,8 @@ export function ExecutorGuard(symbol: symbol, executerGuardOption?: ExecutorGuar
     } else {
       const method = descriptor.value!;
       descriptor.value = function () {
-        const called = Reflect.getMetadata(symbol, target);
-        if (called === false) {
+        const called = Reflect.getMetadata(symbol, this);
+        if (called === false || called === undefined) {
           throw error;
         }
         // eslint-disable-next-line prefer-rest-params
