@@ -19,11 +19,6 @@ export class StringContext<T> extends ValidatorContext<T, string> {
   }
 
   @VerifyGuard()
-  get isStrictValid(): boolean {
-    return this._isValid;
-  }
-
-  @VerifyGuard()
   get isValid(): boolean {
     return this._isValid;
   }
