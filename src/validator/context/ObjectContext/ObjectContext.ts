@@ -1,7 +1,7 @@
 import { Pipe, PipeGuard, Verify, VerifyGuard } from '@decorators';
 import { TypeofReturnType } from '@types';
-import { isObject } from 'lodash';
-import { ValidatorContext } from '../ValidatorContext/ValidatorContext';
+import { isObject } from '@raw';
+import { ValidatorContext } from '@context';
 
 export class ObjectContext<T> extends ValidatorContext<T, object> {
   get value(): T {
