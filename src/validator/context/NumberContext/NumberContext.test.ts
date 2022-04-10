@@ -1,6 +1,6 @@
 import { NumberContext } from './NumberContext';
 
-test('validObjectContextTest', () => {
+test('validNumberContextTest', () => {
   const numberContext = new NumberContext(5);
 
   expect(() => numberContext.isValid).toThrow();
@@ -18,7 +18,7 @@ test('validObjectContextTest', () => {
   expect(() => numberContext.throwTypeErrorIfValueIsNotValid()).not.toThrow();
 });
 
-test('invalidObjectContextTest', () => {
+test('invalidNumberContextTest', () => {
   const numberContext = new NumberContext('test');
   expect(() => numberContext.isValid).toThrow();
   expect(() => numberContext.pipedValue).toThrow();
