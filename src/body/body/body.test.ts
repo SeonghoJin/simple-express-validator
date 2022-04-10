@@ -11,7 +11,7 @@ test('GetBodyTestValidTest', () => {
   });
 });
 
-describe('GetBodyTestInvalidTest', () => {
+test('GetBodyTestInvalidTest', () => {
   const invalidRequests: RequestLike[] = [
     {
       body: null,
@@ -21,13 +21,7 @@ describe('GetBodyTestInvalidTest', () => {
     },
   ];
 
-  invalidRequests.forEach((request, index) => {
-    test(`${index}`, () => {
-      try {
-        expect(getBody(request)).toThrowError(TypeError);
-      } catch (e) {
-        expect(e).toBeInstanceOf(TypeError);
-      }
-    });
+  invalidRequests.forEach((request) => {
+    expect(() => getBody(request)).toThrowError(TypeError);
   });
 });
