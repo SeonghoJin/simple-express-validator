@@ -13,7 +13,7 @@ export const getBoolean = (req: RequestLike, path: string, option?: GetBooleanOp
   const property = getProperty(body, path);
   const context = new BooleanContext(property);
   context.verify();
-  context.throwTypeErrorIfValueIsNotValid(createErrorMessage(path, property, 'this is not string'));
+  context.throwTypeErrorIfValueIsNotValid(createErrorMessage(path, property, 'this is not boolean'));
 
   if (option?.pipe) {
     context.pipe();
