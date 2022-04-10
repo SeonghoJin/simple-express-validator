@@ -1,9 +1,8 @@
 import { Pipe, PipeGuard, Verify, VerifyGuard } from '@decorators';
 import { TypeofReturnType } from '@types';
 import { ValidatorContext } from '@context';
-import { isWidelyBoolean } from '@raw';
+import { isWidelyBoolean, isBoolean, isNumber, isString } from '@raw';
 import { PipingError } from '@error';
-import { isBoolean, isNumber, isString } from 'lodash';
 
 export class BooleanContext<T> extends ValidatorContext<T, boolean> {
   get value(): T {
@@ -76,6 +75,6 @@ export class BooleanContext<T> extends ValidatorContext<T, boolean> {
       return;
     }
 
-    throw new TypeError(message ?? 'this is not number');
+    throw new TypeError(message ?? 'this is not boolean');
   }
 }
