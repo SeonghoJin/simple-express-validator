@@ -30,9 +30,7 @@ export class StringContext<T> extends ValidatorContext<T, string> {
 
   @Verify()
   verify(): void {
-    if (isString(this._value)) {
-      this._isValid = true;
-    }
+    this._isValid = isString(this.value);
   }
 
   @VerifyGuard()
@@ -40,6 +38,8 @@ export class StringContext<T> extends ValidatorContext<T, string> {
   pipe(): void {
     if (this.isValid) {
       this._pipedValue = this._value as unknown as string;
+    } else {
+      this._pipedValue = '';
     }
   }
 
@@ -48,10 +48,7 @@ export class StringContext<T> extends ValidatorContext<T, string> {
     if (this.isValid) {
       return;
     }
-    if (message) {
-      throw new TypeError(message);
-    } else {
-      throw new TypeError('this is not string');
-    }
+
+    throw new TypeError(message ?? 'this is not string');
   }
 }
