@@ -43,6 +43,7 @@ test('GetObjectInvalidTest', () => {
       one: null,
       two: undefined,
       three: '123asjdkasldjl',
+      isUndefined: undefined,
     },
   };
 

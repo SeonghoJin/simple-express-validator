@@ -1,19 +1,23 @@
-import { RequestLike } from '../../types/express';
-import { getProperty } from '../../util';
-import { createErrorMessage } from '../../error/createErrorMessage';
-import { getBody } from '../body/body';
+import { RequestLike } from '@types';
+import { getProperty } from '@util';
+import { createErrorMessage } from '@error';
+import { getBody } from '@body';
+import { ObjectContext } from '@context';
 
-export const getObject = (req: RequestLike, path: string) => {
+type GetObjectOption = {
+  pipe?: boolean;
+  throw?: boolean;
+};
+
+export const getObject = (req: RequestLike, path: string, getObjectOption?: GetObjectOption) => {
   const body = getBody(req);
   const property = getProperty(body, path);
-
-  if (property === null || property === undefined) {
-    throw new TypeError(createErrorMessage(path, property, 'this is null or undefined'));
+  const context = new ObjectContext(property);
+  context.verify();
+  context.throwTypeErrorIfValueIsNotValid(createErrorMessage(path, property, 'this is not object'));
+  if (getObjectOption?.pipe) {
+    context.pipe();
+    return context.pipedValue;
   }
-
-  if (typeof property !== 'object') {
-    throw new TypeError(createErrorMessage(path, property, 'this is not object'));
-  }
-
-  return property;
+  return context.value;
 };
