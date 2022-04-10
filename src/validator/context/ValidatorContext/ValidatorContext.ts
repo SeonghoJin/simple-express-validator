@@ -14,7 +14,6 @@ export abstract class ValidatorContext<T, K> {
   abstract get value(): T;
   abstract get type(): TypeofReturnType;
   abstract get pipedValue(): K | null;
-  abstract get isStrictValid(): boolean;
   abstract get isValid(): boolean;
   abstract verify(): void;
   abstract pipe(): void;
