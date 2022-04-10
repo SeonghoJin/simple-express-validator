@@ -1,16 +1,22 @@
 import { RequestLike } from '../../types/express';
 import { createErrorMessage } from '../../error/createErrorMessage';
 import { getString } from '../string/string';
+import { NotEmptyStringContext, NotEmptyStringContextOption } from '@context';
 
-type GetNotEmptyStringOption = {
-  ignoreWhiteSpace: boolean;
+type GetNotEmptyStringOption = Pick<NotEmptyStringContextOption, 'ignoreWhiteSpace'> & {
+  pipe?: boolean;
 };
 
 export const getNotEmptyString = (req: RequestLike, path: string, option?: GetNotEmptyStringOption) => {
   const property = getString(req, path);
-  const validProp = option?.ignoreWhiteSpace ? property.trim() : property;
-  if (validProp === '') {
-    throw new TypeError(createErrorMessage(path, property, 'this is empty string'));
+  const context = new NotEmptyStringContext(property, option);
+  context.verify();
+  context.throwTypeErrorIfValueIsNotValid(createErrorMessage(path, property, 'this is not empty string'));
+
+  if (option?.pipe) {
+    context.pipe();
+    return context.pipedValue;
   }
-  return property;
+
+  return context.value;
 };
