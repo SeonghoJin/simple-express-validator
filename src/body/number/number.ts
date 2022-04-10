@@ -2,6 +2,7 @@ import { RequestLike } from '../../types/express';
 import { getProperty } from '../../util';
 import { createErrorMessage } from '../../error/createErrorMessage';
 import { getBody } from '../body/body';
+import { NumberContext } from '@context';
 
 type GetNumberOptions = {
   pipe?: boolean;
@@ -10,19 +11,12 @@ type GetNumberOptions = {
 export const getNumber = (req: RequestLike, path: string, option?: GetNumberOptions) => {
   const body = getBody(req);
   const property = getProperty(body, path);
-  const convertedProperty = Number(property);
-
-  if (property === null || property === undefined) {
-    throw new TypeError(createErrorMessage(path, property, 'this is null or undefined'));
+  const context = new NumberContext(property);
+  context.verify();
+  context.throwTypeErrorIfValueIsNotValid(createErrorMessage(path, property, 'this is not number'));
+  if (option?.pipe) {
+    context.pipe();
+    return context.pipedValue;
   }
-
-  if (Number.isNaN(convertedProperty)) {
-    throw new TypeError(createErrorMessage(path, property, 'this is Nan'));
-  }
-
-  if (typeof convertedProperty !== 'number') {
-    throw new TypeError(createErrorMessage(path, property, 'this is not number'));
-  }
-
-  return option?.pipe ? convertedProperty : property;
+  return context.value;
 };
