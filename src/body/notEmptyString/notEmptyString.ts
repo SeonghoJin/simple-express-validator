@@ -1,6 +1,6 @@
-import { RequestLike } from '../../types/express';
-import { createErrorMessage } from '../../error/createErrorMessage';
-import { getString } from '../string/string';
+import { RequestLike } from '@types';
+import { createErrorMessage } from '@error';
+import { getString } from '@body';
 import { NotEmptyStringContext, NotEmptyStringContextOption } from '@context';
 
 type GetNotEmptyStringOption = Pick<NotEmptyStringContextOption, 'ignoreWhiteSpace'> & {

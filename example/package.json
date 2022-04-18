@@ -31,7 +31,7 @@
     "morgan": "^1.10.0",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
-    "soft-express-validator": "^0.0.4",
+    "simple-express-validator": "file:../",
     "swagger-jsdoc": "^6.0.0",
     "swagger-ui-express": "^4.1.6",
     "typeorm": "^0.2.34",
