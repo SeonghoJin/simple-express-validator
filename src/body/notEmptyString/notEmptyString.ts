@@ -7,6 +7,9 @@ type GetNotEmptyStringOption = Pick<NotEmptyStringContextOption, 'ignoreWhiteSpa
   pipe?: boolean;
 };
 
+/**
+ *  @deprecated using ExpressValidator
+ */
 export const getNotEmptyString = (req: RequestLike, path: string, option?: GetNotEmptyStringOption) => {
   const property = getString(req, path);
   const context = new NotEmptyStringContext(property, option);

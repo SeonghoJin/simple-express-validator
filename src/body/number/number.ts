@@ -8,6 +8,9 @@ type GetNumberOptions = {
   pipe?: boolean;
 };
 
+/**
+ *  @deprecated using ExpressValidator
+ */
 export const getNumber = (req: RequestLike, path: string, option?: GetNumberOptions) => {
   const body = getBody(req);
   const property = getProperty(body, path);

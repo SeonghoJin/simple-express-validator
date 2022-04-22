@@ -8,6 +8,9 @@ type GetBooleanOptions = {
   pipe?: boolean;
 };
 
+/**
+ *  @deprecated using ExpressValidator
+ */
 export const getBoolean = (req: RequestLike, path: string, option?: GetBooleanOptions) => {
   const body = getBody(req);
   const property = getProperty(body, path);

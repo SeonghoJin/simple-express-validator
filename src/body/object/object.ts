@@ -9,6 +9,9 @@ type GetObjectOption = {
   throw?: boolean;
 };
 
+/**
+ *  @deprecated using ExpressValidator
+ */
 export const getObject = (req: RequestLike, path: string, getObjectOption?: GetObjectOption) => {
   const body = getBody(req);
   const property = getProperty(body, path);
