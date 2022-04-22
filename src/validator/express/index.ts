@@ -2,15 +2,24 @@ import { createErrorMessage } from '@error';
 import { RequestLike } from '@types';
 import { isNullOrUndefined } from '../raw/isNullOrUndefined';
 import { ExpressValidatorAPI } from './ExpressValidatorAPI';
+import {
+  GetBooleanOptions,
+  GetNotEmptyStringOption,
+  GetNumberOptions,
+  GetObjectOption,
+  GetStringOption,
+} from './option-types';
+import { BooleanContext, StringContext, NotEmptyStringContext, NumberContext, ObjectContext } from '@context';
+import { getProperty } from '@util';
 
 export class ExpressValidator implements ExpressValidatorAPI {
-  #root: any;
+  #root: object;
   readonly #req: RequestLike;
-  readonly #property: 'headers' | 'body';
 
   constructor(req: RequestLike, property: 'headers' | 'body' | 'params' | 'query') {
     this.#req = req;
     this.#root = req[property];
+    this.verifyRootValue();
   }
 
   private verifyRootValue() {
@@ -21,41 +30,101 @@ export class ExpressValidator implements ExpressValidatorAPI {
 
   switchHeaders(): this {
     this.#root = this.#req['headers'];
-
+    this.verifyRootValue();
     return this;
   }
 
   switchBody(): this {
     this.#root = this.#req['body'];
+    this.verifyRootValue();
     return this;
-    throw new Error('Method not implemented.');
   }
 
   switchParams(): this {
-    throw new Error('Method not implemented.');
+    this.#root = this.#req['params'];
+    this.verifyRootValue();
+
+    return this;
   }
 
   switchQuery(): this {
-    throw new Error('Method not implemented.');
+    this.#root = this.#req['query'];
+    this.verifyRootValue();
+
+    return this;
   }
 
-  getString(): string {
-    throw new Error('Method not implemented.');
+  getString(path: string, options?: GetStringOption): string {
+    const payload = getProperty(this.#req, path);
+    const context = new StringContext(payload);
+    context.verify();
+    context.throwTypeErrorIfValueIsNotValid(createErrorMessage(path, payload, 'this is not string'));
+
+    if (options?.pipe) {
+      context.pipe();
+      return context.pipedValue as string;
+    }
+
+    return context.value;
   }
 
-  getNotEmptyString(): string {
-    throw new Error('Method not implemented.');
+  getNotEmptyString(path: string, option?: GetNotEmptyStringOption): string {
+    const payload = getProperty(this.#req, path);
+    const context = new NotEmptyStringContext(payload);
+
+    context.verify();
+    context.throwTypeErrorIfValueIsNotValid(createErrorMessage(path, payload, 'this is empty string'));
+
+    if (option?.pipe) {
+      context.pipe();
+      return context.pipedValue as string;
+    }
+
+    return context.value;
   }
 
-  getBoolean(): boolean {
-    throw new Error('Method not implemented.');
+  getBoolean(path: string, option?: GetBooleanOptions): boolean {
+    const payload = getProperty(this.#req, path);
+    const context = new BooleanContext(payload);
+
+    context.verify();
+    context.throwTypeErrorIfValueIsNotValid(createErrorMessage(path, payload, 'this is not boolean'));
+
+    if (option?.pipe) {
+      context.pipe();
+      return context.pipedValue as boolean;
+    }
+
+    return context.value;
   }
 
-  getNumber(): number {
-    throw new Error('Method not implemented.');
+  getNumber(path: string, option?: GetNumberOptions): number {
+    const payload = getProperty(this.#req, path);
+    const context = new NumberContext(payload);
+
+    context.verify();
+    context.throwTypeErrorIfValueIsNotValid(createErrorMessage(path, payload, 'this is not number'));
+
+    if (option?.pipe) {
+      context.pipe();
+      return context.pipedValue as number;
+    }
+
+    return context.value;
   }
 
-  getObject(): object {
-    throw new Error('Method not implemented.');
+  getObject(path: string, option?: GetObjectOption): object {
+    const payload = getProperty(this.#req, path);
+    const context = new ObjectContext(payload);
+
+    context.verify();
+    context.throwTypeErrorIfValueIsNotValid(createErrorMessage(path, payload, 'this is not object'));
+
+    if (option?.pipe) {
+      context.pipe();
+      return context.pipedValue as object;
+    }
+
+    return context.value;
   }
 }
