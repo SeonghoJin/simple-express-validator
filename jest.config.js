@@ -4,7 +4,7 @@ const {pathsToModuleNameMapper} = require('ts-jest');
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  testRegex: ['./src/body/.*\.test\.ts$', './src/validator/context/.*\.test\.ts$'],
+  testRegex: ['./src/body/.*\.test\.ts$', './src/validator/context/.*\.test\.ts$', './src/validator/express/.*\.test\.ts$'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
   modulePaths: [
     '<rootDir>'
